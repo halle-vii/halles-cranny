@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto:wght@400;500;700;800&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-poppins: 'Poppins', sans-serif;
+  --font-roboto: 'Roboto', sans-serif;
+
+  --color-eggshell: #fffbe7;
+  --color-warm-yellow: #ffb400;
+  --color-leaf-green: #5c9461;
+  --color-about-bg: #ffeea0;
+  --color-about-text: #725d42;
+  --color-tag-orange: #e2826a;
+  --color-projects-bg: #ffebb7;
+  --color-dialog-text: #8a7b66;
+  --color-dialog-title: #04afa6;
+  --color-sky-top: #3D8EFE;
+  --color-sky-bottom: #9EE6FF;
+  --color-phone-bg: #f8f4e8;
+  --color-tan: #eee9ca;
+  --color-off-white: #fffff7;
+
+  --color-app-purple: #A992E7;
+  --color-app-blue: #889df0;
+  --color-app-yellow: #f7cd67;
+  --color-app-orange: #e59266;
+  --color-app-pink: #f8a6b2;
+  --color-app-teal: #99CFBE;
+
+  --animate-spin-slow: spin-slow 60s linear infinite;
+  --animate-counter-spin-slow: counter-spin-slow 60s linear infinite;
+  --animate-wiggle: wiggle 3s ease-in-out infinite;
+  --animate-scroll-clouds: scroll-clouds 40s linear infinite;
+  --animate-scroll-bg-vertical: scroll-bg-vertical 20s linear infinite;
+  --animate-scroll-bg-horizontal: scroll-bg-horizontal 20s linear infinite;
+  --animate-fade-in: fade-in 0.3s ease-in;
+  --animate-bounce: bounce-ptr 1s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes counter-spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(-7deg);
+  }
+}
+
+@keyframes scroll-clouds {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounce-ptr {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px); 
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scroll-bg-vertical {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes scroll-bg-horizontal {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: var(--font-roboto);
+  background: var(--color-sky-top);
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Hide Unicorn Studio watermark link */
+a[href*="unicorn.studio?utm_source=public-url"] {
+  display: none !important;
+}
