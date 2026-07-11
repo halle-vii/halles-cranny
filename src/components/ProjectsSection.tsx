@@ -65,7 +65,7 @@ function ProjectScreenshot({ src, alt }: { src: string; alt: string }) {
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="relative bg-projects-bg px-4 py-24 pb-[100px]">
+    <section id="projects" className="relative bg-projects-bg px-4 pt-24 pb-[120px] sm:pb-[100px]">
       <img
         src={assets.waveBorder}
         alt=""
@@ -231,7 +231,7 @@ export function ProjectsSection() {
         src={assets.waveBottom}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute -bottom-[70px] left-0 right-0 w-full object-cover z-20"
+        className="pointer-events-none absolute -bottom-[1px] sm:-bottom-[70px] left-0 right-0 w-full object-cover z-20"
       />
     </section>
   )
