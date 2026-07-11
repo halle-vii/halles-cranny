@@ -16,10 +16,10 @@ function Model() {
       const center = box.getCenter(new THREE.Vector3())
       scene.position.sub(center)
       
-      // Scale the model if needed
+      // Scale the model 
       const size = box.getSize(new THREE.Vector3())
       const maxDim = Math.max(size.x, size.y, size.z)
-      const scale = 2 / maxDim
+      const scale = 6 / maxDim
       scene.scale.setScalar(scale)
     }
 

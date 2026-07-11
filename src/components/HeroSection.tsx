@@ -68,7 +68,7 @@ export function HeroSection() {
             
             {/* Avatar face at top right of dialog */}
             <div 
-              className="absolute right-0 top-0 translate-x-[24%] -translate-y-[15%] h-[180px] w-[180px] sm:h-[200px] sm:w-[200px] md:h-[250px] md:w-[250px] lg:h-[300px] lg:w-[350px] transition-transform duration-300 hover:scale-110 cursor-pointer"
+              className="absolute right-0 top-0 translate-x-[24%] -translate-y-[15%] h-[150px] w-[150px] sm:h-[200px] sm:w-[200px] md:h-[250px] md:w-[250px] lg:h-[300px] lg:w-[350px] transition-transform duration-300 hover:scale-110 cursor-pointer"
               onMouseEnter={() => {
                 setIsHovered(true)
                 
