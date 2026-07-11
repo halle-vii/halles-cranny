@@ -43,7 +43,7 @@ function Model() {
   }, [scene, animations])
 
   // Update animation mixer
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (mixerRef.current) {
       mixerRef.current.update(delta)
     }
