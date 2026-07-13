@@ -6,22 +6,25 @@ import { Navbar } from './components/Navbar'
 import { ProjectsSection } from './components/ProjectsSection'
 import { useScrollSpy } from './hooks/useScrollSpy'
 import { SoundProvider } from './contexts/SoundContext'
+import { ThemeProvider } from './contexts/ThemeContext'
 
 function App() {
   const activeSection = useScrollSpy(navItems.map((item) => item.id))
 
   return (
-    <SoundProvider>
-      <div className="overflow-x-hidden">
-        <Navbar activeSection={activeSection} />
-        <main>
-          <HeroSection />
-          <AboutSection />
-          <ProjectsSection />
-          <ContactSection />
-        </main>
-      </div>
-    </SoundProvider>
+    <ThemeProvider>
+      <SoundProvider>
+        <div className="overflow-x-hidden">
+          <Navbar activeSection={activeSection} />
+          <main>
+            <HeroSection />
+            <AboutSection />
+            <ProjectsSection />
+            <ContactSection />
+          </main>
+        </div>
+      </SoundProvider>
+    </ThemeProvider>
   )
 }
 

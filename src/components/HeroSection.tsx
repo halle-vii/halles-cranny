@@ -5,12 +5,14 @@ import { UnicornScene } from 'unicornstudio-react'
 import { TypeAnimation } from 'react-type-animation'
 import { motion } from 'framer-motion'
 import { useSound } from '../contexts/SoundContext'
+import { useTheme } from '../contexts/ThemeContext'
 
 export function HeroSection() {
   const [isHovered, setIsHovered] = useState(false)
   const amazedSfxRef = useRef<HTMLAudioElement | null>(null)
   const [showMuteButton, setShowMuteButton] = useState(true)
   const { isMuted, toggleMute } = useSound()
+  const { isDarkMode, toggleDarkMode } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,6 +68,32 @@ export function HeroSection() {
             <path fill="#8B7B67" className="lg:hidden" d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" />
             <path fill="#FFFBE7" className="hidden lg:block" d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z" />
             <path fill="#FFFBE7" className="hidden lg:block" d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z" />
+          </svg>
+        )}
+      </motion.button>
+
+      {/* Dark Mode Button */}
+      <motion.button
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ 
+          opacity: showMuteButton ? 1 : 0,
+          scale: showMuteButton ? 1 : 0.8,
+          pointerEvents: showMuteButton ? 'auto' : 'none'
+        }}
+        transition={{ duration: 0.3 }}
+        onClick={toggleDarkMode}
+        className="fixed bottom-6 left-[88px] z-50 flex h-14 w-14 items-center justify-center rounded-full bg-eggshell/40 backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.12)] transition-all hover:scale-110 active:scale-95 lg:bottom-auto lg:left-auto lg:top-6 lg:right-24 lg:h-auto lg:w-auto lg:rounded-none lg:bg-transparent lg:shadow-none lg:backdrop-blur-none"
+        aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        {isDarkMode ? (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-7 w-7 lg:h-12 lg:w-12 lg:opacity-60 lg:hover:opacity-80 lg:transition-opacity">
+            <path fill="#8B7B67" className="lg:hidden" d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+            <path fill="#FFFBE7" className="hidden lg:block" d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-7 w-7 lg:h-12 lg:w-12 lg:opacity-60 lg:hover:opacity-80 lg:transition-opacity">
+            <path fill="#8B7B67" className="lg:hidden" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" />
+            <path fill="#FFFBE7" className="hidden lg:block" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" />
           </svg>
         )}
       </motion.button>

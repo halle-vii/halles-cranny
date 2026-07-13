@@ -1,7 +1,6 @@
 import { assets } from '../assets'
 import { NameTag } from './NameTag'
 import { Chip } from './Chip'
-import { TypeAnimation } from 'react-type-animation'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { WetPaintTitle } from './WetPaintTitle'
 import { useRef, type MouseEvent } from 'react'
