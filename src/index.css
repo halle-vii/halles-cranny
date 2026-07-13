@@ -128,3 +128,21 @@ body {
 a[href*="unicorn.studio?utm_source=public-url"] {
   display: none !important;
 }
+
+/* Disable image selection/highlighting */
+img {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: auto;
+}
+
+/* Disable drag on images */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}

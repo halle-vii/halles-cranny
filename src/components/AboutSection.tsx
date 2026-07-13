@@ -191,9 +191,9 @@ export function AboutSection() {
             <p className="text-justify font-sans text-xl font-medium leading-[1.2] text-about-text md:text-2xl">
               Hiya! I&apos;m <span className="bg-about-bg rounded"> Alyssa Villegas!</span>&nbsp; 
               Driven by a passion for building meaningful &#40;and maybe whimsy!&#41; digital experiences, 
-              I am currently a Computer Science student specializing in Data Science with interests
-              spanning Software Engineering, Artificial Intelligence, and UI/UX Design. I am passionate about
-              creating ❤︎⁠ whether it may be with developing software, painting art, or editing videos. I developed this
+              I am a Computer Science student and frontend developer with a strong interest in UI/UX design. My current major is 
+              Data Science but I am continuously expanding my knowledge in Software Engineering and Artificial Intelligence. 
+              I am passionate about creating ❤︎⁠ whether it may be with developing software, painting art, or editing videos. I developed this
               site to not only showcase what I've built, but also to share a little bit of who I am and my personality :&#41;
 
             </p>

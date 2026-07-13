@@ -3,6 +3,7 @@ import { IsabelleModel } from './IsabelleModel'
 import { UnicornScene } from 'unicornstudio-react'
 import { useState, useRef, useEffect } from "react"
 import { motion } from 'framer-motion'
+import { useSound } from '../contexts/SoundContext'
 
 type ContactApp = {
   label: string
@@ -101,6 +102,7 @@ export function ContactSection() {
     // Initialize based on current screen size
     return typeof window !== 'undefined' ? window.innerWidth >= 768 : true
   })
+  const { isMuted } = useSound()
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -133,11 +135,13 @@ export function ContactSection() {
   }, []);
 
   const playClickSound = () => {
+    if (isMuted) return
     clickSound.current.currentTime = 0;
     clickSound.current.play();
   }
 
   const playHoverSound = () => {
+    if (isMuted) return
     hoverSound.current.currentTime = 0;
     hoverSound.current.play();
   }
@@ -163,20 +167,20 @@ export function ContactSection() {
       </div>
       
       
-      <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1fr_1fr] lg:items-end">
-        <div className="flex items-center justify-center lg:items-end">
+      <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 lg:grid lg:grid-cols-[1fr_1fr] lg:items-end">
+        <div className="flex w-full items-center justify-center lg:w-auto lg:items-end lg:justify-self-end">
           <IsabelleModel />
         </div>
 
         <motion.div 
-          initial={isMediumScreen ? { opacity: 0, scale: 0.2, x: -400, y: -100 } : { opacity: 1, scale: 1, x: 0, y: 0 }}
-          whileInView={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+          initial={isMediumScreen ? { opacity: 0, scale: 0.2 } : { opacity: 1, scale: 1 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           transition={{
             duration: 0.7,
             scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
           }}
           viewport={{ once: true }}
-          className="mx-auto w-full max-w-[450px]">
+          className="w-full max-w-[450px] lg:justify-self-start">
           <div className="relative rounded-[120px] bg-phone-bg px-8 pb-12 pt-10 shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
             <div className="mb-8 flex items-center justify-between px-2 text-[#dddbcc]">
               <span className="text-sm font-medium tracking-widest">
@@ -214,50 +218,44 @@ export function ContactSection() {
         </motion.div>
       </div>
       
-      {/* Credits Footer */}
-      <div className="relative z-10 mx-auto mt-16 max-w-4xl">
-        <div className="relative">
-          <img
-            src={assets.dialogBoxProject}
-            alt=""
-            aria-hidden
-            className="h-auto w-3/4 sm:w-3/4 min-h-[200px] sm:min-h-[200px] md:min-h-[150px] m-auto"
-          />
-          <div className="absolute inset-0 flex flex-col justify-center px-6 py-6 sm:px-8 sm:py-8 md:px-10 md:py-10">
-            <p className="text-[8A7B66] mb-2 text-center font-roboto text-sm font-bold text-dialog-text md:text-lg">
-              Made with love! (and cheese)
-            </p>
-            <p className="mb-2 text-center font-roboto text-xs font-medium text-dialog-text/80 md:text-sm">
-              ACNH Elements credited to{' '}
+      {/* Credits Footer Bar - At bottom of contact section */}
+      <div className="absolute bottom-0 left-0 right-0 z-50 border-t-2 border-dialog-text/20 bg-dialog-text/90 backdrop-blur-md py-2 shadow-lg">
+        <div className="mx-auto max-w-7xl px-2">
+          <p className="mb-2 text-center font-roboto text-xs font-medium text-tan md:text-sm">
+            Made with love! (and cheese) | ACNH Elements credited to{' '}
               <a 
                 href="https://manaloka.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="underline hover:text-dialog-text"
+                className="underline hover:text-tan transition-colors"
               >
                 manaloka.com
-              </a>
-            </p>
-            <p className="text-center font-roboto text-xs font-medium text-dialog-text/80 md:text-sm text-wrap max-w-50 sm:max-w-100 ml-auto mr-auto mt-0">
-              &quot;Isabelle - animal crossing&quot; 3D Model (
+              </a> | &quot;Isabelle - animal crossing&quot; 3D Model (
               <a 
                 href="https://skfb.ly/pHYPL" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="underline hover:text-dialog-text"
+                className="underline hover:text-tan transition-colors"
               >
-                https://skfb.ly/pHYPL
+                skfb.ly/pHYPL
               </a>
               ) by Xetrev is licensed under{' '}
               <a 
                 href="http://creativecommons.org/licenses/by/4.0/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="underline hover:text-dialog-text"
+                className="underline hover:text-tan transition-colors"
               >
                 Creative Commons Attribution
               </a>
-              .
+          </p>
+          <div className="flex flex-col gap-1 text-center font-roboto text-[10px] font-medium text-tan/80 md:text-xs">
+            <p>
+              
+            </p>
+             
+            <p>
+             
             </p>
           </div>
         </div>

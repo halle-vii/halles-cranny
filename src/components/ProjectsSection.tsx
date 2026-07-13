@@ -114,15 +114,11 @@ export function ProjectsSection() {
                 <h3 className="mb-2 mt-4 font-roboto text-lg font-bold leading-[1.2] text-dialog-title sm:mb-3 sm:text-xl md:mb-4 md:text-2xl lg:text-[26px]">
                   Novateur Automated IT Ticketing System (2026)
                 </h3>
-                <TypeAnimation
-                  sequence={[
-                    "Designed and deployed a centralized IT ticketing system to streamline internal operations for a workforce of 100+ employees", 
-                    100
-                  ]}
-                  cursor={false}
-                  speed={80}
-                  className="font-roboto text-sm font-bold leading-[1.2] text-dialog-text sm:text-base md:text-lg lg:text-[19px]"
-                />
+                <p
+                  className="font-roboto text-sm font-bold leading-[1.2] text-dialog-text sm:text-base md:text-lg lg:text-[19px]">
+                  Designed and deployed a centralized IT ticketing system to streamline internal operations for a workforce of 100+ employees
+                </p>
+                
                 <div className="flex flex-wrap gap-2 mt-4 ">
                   <Chip label="React"/>
                   <Chip label="Next.js"/>
@@ -200,15 +196,10 @@ export function ProjectsSection() {
                 <h3 className="mb-2 font-roboto text-lg font-bold leading-[1.2] text-dialog-title sm:mb-3 sm:text-xl md:mb-4 md:text-2xl lg:text-[26px] mt-5">
                   KitaKita: AI-Powered Accessibility Assistant
                 </h3>
-                <TypeAnimation
-                  sequence={[
-                    "Designed and developed the application&apos;s user interface and user experience, prioritizing accessibility, intuitive navigation, and ease of use for visually impaired users.",
-                    1000
-                  ]}
-                  cursor={false}
-                  speed={80}
-                  className="font-roboto text-sm font-bold leading-[1.2] text-dialog-text sm:text-base md:text-lg lg:text-[19px]"
-                />
+                <p
+                  className="font-roboto text-sm font-bold leading-[1.2] text-dialog-text sm:text-base md:text-lg lg:text-[19px]">
+                  Designed and developed the application&apos;s user interface and user experience, prioritizing accessibility, intuitive navigation, and ease of use for visually impaired users.
+                </p>
                 <div className="flex flex-wrap gap-2 mt-4 ">
                   <Chip label="Next.js"/>
                   <Chip label="Typescript" />
