@@ -4,6 +4,7 @@ import { UnicornScene } from 'unicornstudio-react'
 import { useState, useRef, useEffect } from "react"
 import { motion } from 'framer-motion'
 import { useSound } from '../contexts/SoundContext'
+import { useTheme } from '../contexts/ThemeContext'
 
 type ContactApp = {
   label: string
@@ -103,6 +104,7 @@ export function ContactSection() {
     return typeof window !== 'undefined' ? window.innerWidth >= 768 : true
   })
   const { isMuted } = useSound()
+  const { isDarkMode } = useTheme()
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -154,7 +156,7 @@ export function ContactSection() {
       {/* Unicorn Studio Background Scene */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <UnicornScene
-          jsonFilePath="/watercolor.json"
+          jsonFilePath={isDarkMode ? "/watercolornight.json" : "/watercolor.json"}
           width="100%"
           height="100%"
           scale={1}
@@ -162,8 +164,22 @@ export function ContactSection() {
           sdkUrl="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.2.6/dist/unicornStudio.umd.js"
         />
         {/* Gradient fade at top and bottom */}
-        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-sky-top to-transparent pointer-events-none" />
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-sky-bottom to-transparent pointer-events-none" />
+        <div 
+          className="absolute top-0 left-0 right-0 h-40 pointer-events-none"
+          style={{
+            background: isDarkMode 
+              ? 'linear-gradient(to bottom, #021533, transparent)'
+              : 'linear-gradient(to bottom, var(--color-sky-top), transparent)'
+          }}
+        />
+        <div 
+          className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
+          style={{
+            background: isDarkMode 
+              ? 'linear-gradient(to top, #0F2A47, transparent)'
+              : 'linear-gradient(to top, var(--color-sky-bottom), transparent)'
+          }}
+        />
       </div>
       
       
