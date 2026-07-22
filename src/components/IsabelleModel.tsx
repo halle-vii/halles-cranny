@@ -5,7 +5,6 @@ import * as THREE from 'three'
 
 function CameraAdjuster() {
   const { camera, size, gl } = useThree()
-  const hasAdjusted = useRef(false)
   
   useEffect(() => {
     if (camera.type === 'PerspectiveCamera') {
