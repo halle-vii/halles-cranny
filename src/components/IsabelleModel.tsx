@@ -9,16 +9,18 @@ function CameraAdjuster() {
   useEffect(() => {
     if (camera.type === 'PerspectiveCamera') {
       const perspCamera = camera as THREE.PerspectiveCamera
+      const aspect = size.width / size.height
       
       // Adjust FOV based on aspect ratio to prevent cropping
-      // If aspect ratio is narrow (< 1), increase FOV
-      if (size.width / size.height < 1) {
-        perspCamera.fov = 45 + (1 - size.width / size.height) * 30
+      // Only increase FOV when aspect ratio is narrow (< 0.8)
+      if (aspect < 0.8) {
+        // Map aspect ratio 0.5-0.8 to FOV 60-45
+        perspCamera.fov = 45 + (0.8 - aspect) * 50
       } else {
         perspCamera.fov = 45
       }
       
-      perspCamera.aspect = size.width / size.height
+      perspCamera.aspect = aspect
       perspCamera.updateProjectionMatrix()
     }
   }, [camera, size, gl])
