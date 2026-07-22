@@ -1,7 +1,7 @@
 import { assets } from '../assets'
 import { IsabelleModel } from './IsabelleModel'
-import { UnicornScene } from 'unicornstudio-react'
-import { useState, useRef, useEffect } from "react"
+import { StableUnicornScene } from './StableUnicornScene'
+import { useState, useRef, useEffect, useMemo } from "react"
 import { motion } from 'framer-motion'
 import { useSound } from '../contexts/SoundContext'
 import { useTheme } from '../contexts/ThemeContext'
@@ -106,6 +106,16 @@ export function ContactSection() {
   const { isMuted } = useSound()
   const { isDarkMode } = useTheme()
 
+  // Memoize the UnicornScene props to prevent flickering on resize
+  const unicornSceneProps = useMemo(() => ({
+    jsonFilePath: isDarkMode ? "/watercolornight.json" : "/watercolor.json",
+    width: "100%",
+    height: "100%",
+    scale: 1,
+    dpi: 1.5,
+    sdkUrl: "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.2.6/dist/unicornStudio.umd.js"
+  }), [isDarkMode])
+
   useEffect(() => {
     const checkScreenSize = () => {
       setIsMediumScreen(window.innerWidth >= 768)
@@ -151,18 +161,13 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative bg-gradient-to-b from-sky-top to-sky-bottom px-4 pb-24 pt-16"
+      className={`relative px-4 pb-24 pt-24 md:pt-16 transition-colors ${
+        isDarkMode ? 'bg-[#021533]' : 'bg-gradient-to-b from-sky-top to-sky-bottom'
+      }`}
     >
       {/* Unicorn Studio Background Scene */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <UnicornScene
-          jsonFilePath={isDarkMode ? "/watercolornight.json" : "/watercolor.json"}
-          width="100%"
-          height="100%"
-          scale={1}
-          dpi={1.5}
-          sdkUrl="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.2.6/dist/unicornStudio.umd.js"
-        />
+        <StableUnicornScene {...unicornSceneProps} />
         {/* Gradient fade at top and bottom */}
         <div 
           className="absolute top-0 left-0 right-0 h-40 pointer-events-none"
@@ -184,7 +189,7 @@ export function ContactSection() {
       
       
       <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 lg:grid lg:grid-cols-[1fr_1fr] lg:items-end">
-        <div className="flex w-full items-center justify-center lg:w-auto lg:items-end lg:justify-self-end">
+        <div className=" flex w-full items-center justify-center lg:w-auto lg:items-end lg:justify-self-end">
           <IsabelleModel />
         </div>
 
@@ -197,7 +202,8 @@ export function ContactSection() {
           }}
           viewport={{ once: true }}
           className="w-full max-w-[450px] lg:justify-self-start">
-          <div className="relative rounded-[120px] bg-phone-bg px-8 pb-12 pt-10 shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
+          <div className={`relative rounded-[120px] px-8 pb-12 pt-10 shadow-[0_20px_50px_rgba(0,0,0,0.12)] ${
+            isDarkMode ? 'bg-dark-about-dialog-bg' : 'bg-phone-bg'}`}>
             <div className="mb-8 flex items-center justify-between px-2 text-[#dddbcc]">
               <span className="text-sm font-medium tracking-widest">
                 <img 
@@ -212,7 +218,8 @@ export function ContactSection() {
               </span>
             </div>
 
-            <h2 className="mb-10 text-center font-roboto text-4xl font-bold text-dialog-text md:text-5xl">
+            <h2 className={`mb-10 text-center font-roboto text-4xl font-bold md:text-5xl ${
+              isDarkMode ? 'text-dark-hero-title-text' : 'text-dialog-text'}`}>
               {hoveredApp ?? "Contact Me!"}
             </h2>
 
@@ -235,7 +242,8 @@ export function ContactSection() {
       </div>
       
       {/* Credits Footer Bar - At bottom of contact section */}
-      <div className="absolute bottom-0 left-0 right-0 z-50 border-t-2 border-dialog-text/20 bg-dialog-text/90 backdrop-blur-md py-2 shadow-lg">
+      <div className={`absolute bottom-0 left-0 right-0 z-50 border-t-2 backdrop-blur-md py-2 shadow-lg ${
+        isDarkMode ? 'border-[#0E1620] bg-[#0E1620]' : 'border-dialog-text/20 bg-dialog-text/90'}`}>
         <div className="mx-auto max-w-7xl px-2">
           <p className="mb-2 text-center font-roboto text-xs font-medium text-tan md:text-sm">
             Made with love! (and cheese) | ACNH Elements credited to{' '}

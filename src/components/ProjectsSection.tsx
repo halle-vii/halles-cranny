@@ -4,6 +4,7 @@ import { Chip } from './Chip'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { WetPaintTitle } from './WetPaintTitle'
 import { useRef, type MouseEvent } from 'react'
+import { useTheme } from '../contexts/ThemeContext'
 
 function ProjectScreenshot({ src, alt }: { src: string; alt: string }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -63,10 +64,13 @@ function ProjectScreenshot({ src, alt }: { src: string; alt: string }) {
 }
 
 export function ProjectsSection() {
+  const { isDarkMode } = useTheme()
   return (
-    <section id="projects" className="relative bg-projects-bg px-4 pt-24 pb-[120px] sm:pb-[100px]">
+    <section id="projects" className={`relative px-4 pt-24 pb-[120px] sm:pb-[100px] ${
+      isDarkMode ? 'bg-projects-bg-dark' : 'bg-projects-bg'
+    }`}>
       <img
-        src={assets.waveBorder}
+        src={isDarkMode ? assets.waveBorderDark : assets.waveBorder}
         alt=""
         aria-hidden
         className="pointer-events-none absolute -top-[70px] left-0 right-0 w-full object-cover"
@@ -83,7 +87,7 @@ export function ProjectsSection() {
         >
           <WetPaintTitle 
             title="Projects"
-            backgroundColor="#79C4AE"
+            backgroundColor={isDarkMode ? "#04463D" : "#79C4AE" }
             textColor="#eee9ca"
             dripCount={4}
             speed={1}
@@ -101,10 +105,10 @@ export function ProjectsSection() {
             }}
             viewport={{ once: true }}
             className="relative">
-            <NameTag label="Halle" size="sm" className="absolute -left-2 -top-4 z-10" />
+            <NameTag label="Halle" size="sm" className="absolute -left-2 -top-4 z-10" isDarkMode={isDarkMode} darkBgColor="bg-dark-hero-nametag-bg" darkTextColor="text-dark-hero-nametag-text"/>
             <div className="relative">
               <img
-                src={assets.dialogBoxProject}
+                src={isDarkMode ? assets.dialogBoxProjectDark : assets.dialogBoxProject}
                 alt=""
                 aria-hidden
                 className="h-auto w-full min-h-[300px]"
@@ -114,15 +118,17 @@ export function ProjectsSection() {
                   Novateur Automated IT Ticketing System (2026)
                 </h3>
                 <p
-                  className="font-roboto text-sm font-bold leading-[1.2] text-dialog-text sm:text-base md:text-lg lg:text-[19px]">
+                  className={`font-roboto text-sm font-bold leading-[1.2] sm:text-base md:text-lg lg:text-[19px] ${
+                    isDarkMode ? 'text-dark-about-text' : 'text-dialog-text'
+                  }`}>
                   Designed and deployed a centralized IT ticketing system to streamline internal operations for a workforce of 100+ employees
                 </p>
                 
                 <div className="flex flex-wrap gap-2 mt-4 ">
-                  <Chip label="React"/>
-                  <Chip label="Next.js"/>
-                  <Chip label="Typescript" />
-                  <Chip label="Azure"/>
+                  <Chip label="React" bgColor={isDarkMode ? 'bg-dark-about-chip-bg' : undefined} textColor={isDarkMode ? 'text-dark-about-chip-text' : undefined}/>
+                  <Chip label="Next.js" bgColor={isDarkMode ? 'bg-dark-about-chip-bg' : undefined} textColor={isDarkMode ? 'text-dark-about-chip-text' : undefined}/>
+                  <Chip label="Typescript" bgColor={isDarkMode ? 'bg-dark-about-chip-bg' : undefined} textColor={isDarkMode ? 'text-dark-about-chip-text' : undefined}/>
+                  <Chip label="Azure" bgColor={isDarkMode ? 'bg-dark-about-chip-bg' : undefined} textColor={isDarkMode ? 'text-dark-about-chip-text' : undefined}/>
                 </div>
               </div>
               <img
@@ -183,10 +189,10 @@ export function ProjectsSection() {
               perspective: 1000
             }}
             className="relative order-1 lg:order-2">
-            <NameTag label="Halle" size="sm" className="absolute -left-2 -top-4 z-10" />
+            <NameTag label="Halle" size="sm" className="absolute -left-2 -top-4 z-10" isDarkMode={isDarkMode} darkBgColor="bg-dark-hero-nametag-bg" darkTextColor="text-dark-hero-nametag-text"/>
             <div className="relative">
               <img
-                src={assets.dialogBoxProject}
+                src={isDarkMode ? assets.dialogBoxProjectDark : assets.dialogBoxProject}
                 alt=""
                 aria-hidden
                 className="h-auto w-full sm:min-h-[350px] min-h-[300px] "
@@ -196,14 +202,16 @@ export function ProjectsSection() {
                   KitaKita: AI-Powered Accessibility Assistant
                 </h3>
                 <p
-                  className="font-roboto text-sm font-bold leading-[1.2] text-dialog-text sm:text-base md:text-lg lg:text-[19px]">
+                  className={`font-roboto text-sm font-bold leading-[1.2] sm:text-base md:text-lg lg:text-[19px] ${
+                    isDarkMode ? 'text-dark-about-text' : 'text-dialog-text'
+                  }`}>
                   Designed and developed the application&apos;s user interface and user experience, prioritizing accessibility, intuitive navigation, and ease of use for visually impaired users.
                 </p>
                 <div className="flex flex-wrap gap-2 mt-4 ">
-                  <Chip label="Next.js"/>
-                  <Chip label="Typescript" />
-                  <Chip label="Capacitor"/>
-                  <Chip label="TensorFlow.js"/>
+                  <Chip label="Next.js" bgColor={isDarkMode ? 'bg-dark-about-chip-bg' : undefined} textColor={isDarkMode ? 'text-dark-about-chip-text' : undefined}/>
+                  <Chip label="Typescript" bgColor={isDarkMode ? 'bg-dark-about-chip-bg' : undefined} textColor={isDarkMode ? 'text-dark-about-chip-text' : undefined}/>
+                  <Chip label="Capacitor" bgColor={isDarkMode ? 'bg-dark-about-chip-bg' : undefined} textColor={isDarkMode ? 'text-dark-about-chip-text' : undefined}/>
+                  <Chip label="TensorFlow.js" bgColor={isDarkMode ? 'bg-dark-about-chip-bg' : undefined} textColor={isDarkMode ? 'text-dark-about-chip-text' : undefined}/>
                 </div>
               </div>
               <img
@@ -218,7 +226,7 @@ export function ProjectsSection() {
       </div>
 
       <img
-        src={assets.waveBottom}
+        src={isDarkMode ? assets.waveBottomDark : assets.waveBottom}
         alt=""
         aria-hidden
         className="pointer-events-none absolute -bottom-[1px] sm:-bottom-[70px] left-0 right-0 w-full object-cover z-20"

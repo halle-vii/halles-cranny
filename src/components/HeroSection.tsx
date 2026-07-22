@@ -1,7 +1,7 @@
 import { assets } from '../assets'
 import { NameTag } from './NameTag'
-import { useState, useRef, useEffect } from 'react'
-import { UnicornScene } from 'unicornstudio-react'
+import { useState, useRef, useEffect, useMemo } from 'react'
+import { StableUnicornScene } from './StableUnicornScene'
 import { TypeAnimation } from 'react-type-animation'
 import { motion } from 'framer-motion'
 import { useSound } from '../contexts/SoundContext'
@@ -10,9 +10,20 @@ import { useTheme } from '../contexts/ThemeContext'
 export function HeroSection() {
   const [isHovered, setIsHovered] = useState(false)
   const amazedSfxRef = useRef<HTMLAudioElement | null>(null)
+  const themeSfxRef = useRef<HTMLAudioElement | null>(null)
   const [showMuteButton, setShowMuteButton] = useState(true)
   const { isMuted, toggleMute } = useSound()
   const { isDarkMode, toggleDarkMode } = useTheme()
+
+  // Memoize the UnicornScene props to prevent flickering on resize
+  const unicornSceneProps = useMemo(() => ({
+    jsonFilePath: isDarkMode ? "/watercolornight.json" : "/watercolor.json",
+    width: "100%",
+    height: "100%",
+    scale: 1,
+    dpi: 1.5,
+    sdkUrl: "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.2.6/dist/unicornStudio.umd.js"
+  }), [isDarkMode])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,10 +50,23 @@ export function HeroSection() {
     amazedSfxRef.current.play()
   }
 
+  const playThemeSound = () => {
+    if (isMuted) return
+    
+    if (!themeSfxRef.current) {
+      themeSfxRef.current = new Audio("/sounds/UI_Copy.wav")
+    }
+    themeSfxRef.current.currentTime = 0
+    themeSfxRef.current.volume = 0.2
+    themeSfxRef.current.play()
+  }
+
   return (
     <section
       id="home"
-      className="relative min-h-[50vh] lg:min-h-screen bg-gradient-to-b from-sky-top to-sky-bottom to-[50%] px-4 pb-4 pt-20 sm:pb-12 sm:pt-28"
+      className={`relative min-h-[50vh] lg:min-h-screen px-4 pb-4 pt-20 sm:pb-12 sm:pt-28 transition-colors ${
+        isDarkMode ? 'bg-[#0F2A47]' : 'bg-gradient-to-b from-sky-top to-sky-bottom to-[50%]'
+      }`}
     >
       {/* Mute Button */}
       <motion.button
@@ -81,7 +105,10 @@ export function HeroSection() {
           pointerEvents: showMuteButton ? 'auto' : 'none'
         }}
         transition={{ duration: 0.3 }}
-        onClick={toggleDarkMode}
+        onClick={() => {
+          toggleDarkMode()
+          playThemeSound()
+        }}
         className="fixed bottom-6 left-[88px] z-50 flex h-14 w-14 items-center justify-center rounded-full bg-eggshell/40 backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,0.12)] transition-all hover:scale-110 active:scale-95 lg:bottom-auto lg:left-auto lg:top-6 lg:right-24 lg:h-auto lg:w-auto lg:rounded-none lg:bg-transparent lg:shadow-none lg:backdrop-blur-none"
         aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
       >
@@ -100,14 +127,7 @@ export function HeroSection() {
 
       {/* Unicorn Studio Background Scene */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <UnicornScene
-          jsonFilePath={isDarkMode ? "/watercolornight.json" : "/watercolor.json"}
-          width="100%"
-          height="100%"
-          scale={1}
-          dpi={1.5}
-          sdkUrl="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.2.6/dist/unicornStudio.umd.js"
-        />
+        <StableUnicornScene {...unicornSceneProps} />
         {/* Gradient fade at bottom */}
         <div 
           className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
@@ -122,20 +142,34 @@ export function HeroSection() {
         <motion.div 
           className="relative mx-auto w-full sm:w-[75%] min-w-[320px]" 
         >
-          <NameTag label="Halle" size="responsive" className="absolute left-0 top-4 translate-x-5 z-10" />
+          <NameTag 
+            label="Halle" 
+            size="responsive" 
+            className="absolute left-0 top-4 translate-x-5 z-10"
+            isDarkMode={isDarkMode}
+            darkBgColor="bg-dark-hero-nametag-bg"
+            darkTextColor="text-dark-hero-nametag-text"
+          />
 
           <div className="relative mt-8 mb-8">
-            <img
-              src={assets.dialogBox}
-              alt=""
-              aria-hidden
-              className="h-auto w-full sm:min-w-[80%] xl:min-w-full mx-auto min-h-[200px] sm:min-h-[200px] md:min-h-[250px]"
-            />
-            <div className="absolute left-8 sm:left-12 md:left-12 lg:left-17 top-[18%]  max-w-[70%] pr-[5%]">
-              <p className="font-roboto text-2xl sm:text-3xl font-bold leading-[1.43] text-dialog-text sm:text-2xl md:text-3xl lg:text-4xl xl:text-[48px] mt-4">
+            {/* Dialog box container with fixed aspect ratio */}
+            <div className="relative w-full" style={{ aspectRatio: '689 / 292' }}>
+              <img
+                src={isDarkMode ? assets.dialogBoxDark : assets.dialogBox}
+                alt=""
+                aria-hidden
+                className="absolute inset-0 h-full w-full object-fill"
+              />
+            </div>
+            
+            <div className="absolute left-8 sm:left-12 md:left-12 lg:left-17 top-[18%] max-w-[70%] pr-[5%]">
+              <p className={`font-roboto text-2xl sm:text-3xl font-bold leading-[1.43] sm:text-2xl md:text-3xl lg:text-4xl xl:text-[48px] mt-4 transition-colors ${
+                isDarkMode ? 'text-dark-hero-body-text' : 'text-dialog-text'
+              }`}>
                 Welcome to
               </p>
               <TypeAnimation 
+                key={isDarkMode ? 'dark' : 'light'}
                 sequence={[
                   "Halle's Portfolio!",
                   1000,
@@ -147,7 +181,9 @@ export function HeroSection() {
                   2000
                 ]}
                 cursor={false}
-                className="mt-1 font-roboto text-[2.5rem] font-bold leading-[1.1] text-leaf-green whitespace-nowrap sm:mt-2  sm:text-4xl md:text-5xl lg:text-6xl xl:text-[80px]"
+                className={`mt-1 font-roboto text-[2.5rem] font-bold leading-[1.1] whitespace-nowrap sm:mt-2 sm:text-4xl md:text-5xl lg:text-6xl xl:text-[80px] ${
+                  isDarkMode ? 'text-dark-hero-title-text' : 'text-leaf-green'
+                }`}
               />
             </div>
             <img
@@ -192,7 +228,7 @@ export function HeroSection() {
           {[...Array(20)].map((_, i) => (
             <img 
               key={i}
-              src={assets.clouds}
+              src={isDarkMode ? assets.cloudsdark : assets.clouds}
               alt=""
               className="h-20 w-auto flex-shrink-0 object-contain sm:h-24 md:h-32 lg:h-100 -mx-10"
             />
@@ -201,7 +237,7 @@ export function HeroSection() {
           {[...Array(20)].map((_, i) => (
             <img 
               key={`duplicate-${i}`}
-              src={assets.clouds}
+              src={isDarkMode ? assets.cloudsdark : assets.clouds}
               alt=""
               className="h-20 w-auto flex-shrink-0 object-contain sm:h-24 md:h-32 lg:h-100 -mx-10"
             />

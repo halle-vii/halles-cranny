@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useTheme } from '../contexts/ThemeContext'
 
 interface WetPaintTitleProps {
   title: string
@@ -29,12 +30,13 @@ export function WetPaintTitle({
   ]
 
   const visibleDrips = dripConfigs.slice(0, dripCount)
+  const { isDarkMode } = useTheme()
 
   return (
     <div className="relative mx-auto mb-12 w-fit">
       <div className="relative">
         <img
-          src="/projectBubble.svg"
+          src={isDarkMode ? "/projectBubbleDark.svg" : "/projectBubble.svg"}
           alt=""
           aria-hidden
           className="h-[115px] w-[287px]"

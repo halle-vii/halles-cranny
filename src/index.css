@@ -12,6 +12,7 @@
   --color-about-text: #725d42;
   --color-tag-orange: #e2826a;
   --color-projects-bg: #ffebb7;
+  --color-projects-bg-dark: #7F5941;
   --color-dialog-text: #8a7b66;
   --color-dialog-title: #04afa6;
   --color-sky-top: #3D8EFE;
@@ -26,6 +27,31 @@
   --color-app-orange: #e59266;
   --color-app-pink: #f8a6b2;
   --color-app-teal: #99CFBE;
+
+  /* Dark mode colors */
+  --color-dark-nav-bg: #0F1620;
+  --color-dark-nav-text: #59C9C0;
+  --color-dark-nav-active-bg: #FAD12B;
+  --color-dark-nav-active-text: #0F1620;
+
+  /* Hero Section Dark Mode */
+  --color-dark-hero-dialog-bg: #0F1620;
+  --color-dark-hero-body-text: #D3FBF8;
+  --color-dark-hero-title-text: #FFF279;
+  --color-dark-hero-nametag-bg: #1C2F29;
+  --color-dark-hero-nametag-text: #FFF279;
+
+  /* About Section Dark Mode */
+  --color-dark-about-bg-start: #0E2845;
+  --color-dark-about-bg-end: #7E523A;
+  --color-dark-about-dialog-bg: #0F1620;
+  --color-dark-about-nametag-bg: #133C40;
+  --color-dark-about-text: #D3FBF8;
+  --color-dark-about-weapon-bg: #0F1620;
+  --color-dark-about-icon-selected: #3BFFF8;
+  --color-dark-about-icon-unselected: #406D70;
+  --color-dark-about-chip-bg: #132A40;
+  --color-dark-about-chip-text: #D3FBF8;
 
   --animate-spin-slow: spin-slow 60s linear infinite;
   --animate-counter-spin-slow: counter-spin-slow 60s linear infinite;

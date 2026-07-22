@@ -1,7 +1,31 @@
 import { useRef, useEffect, Suspense } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useGLTF, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
+
+function CameraAdjuster() {
+  const { camera, size, gl } = useThree()
+  const hasAdjusted = useRef(false)
+  
+  useEffect(() => {
+    if (camera.type === 'PerspectiveCamera') {
+      const perspCamera = camera as THREE.PerspectiveCamera
+      
+      // Adjust FOV based on aspect ratio to prevent cropping
+      // If aspect ratio is narrow (< 1), increase FOV
+      if (size.width / size.height < 1) {
+        perspCamera.fov = 45 + (1 - size.width / size.height) * 30
+      } else {
+        perspCamera.fov = 45
+      }
+      
+      perspCamera.aspect = size.width / size.height
+      perspCamera.updateProjectionMatrix()
+    }
+  }, [camera, size, gl])
+  
+  return null
+}
 
 function Model() {
   const gltf = useGLTF('/isabelle-animal-crossing/source/Isabelle.glb')
@@ -19,7 +43,7 @@ function Model() {
       // Scale the model 
       const size = box.getSize(new THREE.Vector3())
       const maxDim = Math.max(size.x, size.y, size.z)
-      const scale = 6 / maxDim
+      const scale = 5 / maxDim
       scene.scale.setScalar(scale)
     }
 
@@ -53,12 +77,26 @@ function Model() {
 }
 
 export function IsabelleModel() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
   return (
-    <div className="mx-auto h-[300px] w-full max-w-[567px] md:h-[400px] lg:h-[500px]">
+    <div 
+      ref={containerRef}
+      className="relative mx-auto w-full max-w-[600px] h-[300px] md:h-[400px] lg:h-[500px]"
+    >
       <Canvas
-        camera={{ position: [-3,4,11], fov: 45 }}
-        style={{ background: 'transparent' }}
+        camera={{ 
+          position: [-3, 4, 11], 
+          fov: 45,
+          near: 0.1,
+          far: 1000
+        }}
+        style={{ background: 'transparent', width: '100%', height: '100%' }}
+        onCreated={({ gl }) => {
+          gl.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+        }}
       >
+        <CameraAdjuster />
         <ambientLight intensity={0.8} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         <directionalLight position={[-5, 3, -5]} intensity={0.5} />

@@ -2,6 +2,9 @@ type NameTagProps = {
   label: string
   size?: 'sm' | 'md' | 'lg' | 'responsive'
   className?: string
+  isDarkMode?: boolean
+  darkBgColor?: string
+  darkTextColor?: string
 }
 
 const sizeClasses = {
@@ -11,10 +14,21 @@ const sizeClasses = {
   responsive: 'px-6 py-1.5 text-[32px] sm:px-10 sm:py-2 sm:text-5xl',
 }
 
-export function NameTag({ label, size = 'md', className = '' }: NameTagProps) {
+export function NameTag({ 
+  label, 
+  size = 'md', 
+  className = '',
+  isDarkMode = false,
+  darkBgColor = 'bg-tag-orange',
+  darkTextColor = 'text-off-white'
+}: NameTagProps) {
   return (
     <span
-      className={`inline-block -rotate-[7deg] rounded-[40px] bg-tag-orange font-roboto font-medium text-off-white shadow-sm ${sizeClasses[size]} ${className}`}
+      className={`inline-block -rotate-[7deg] rounded-[40px] font-roboto font-medium shadow-sm transition-colors ${sizeClasses[size]} ${
+        isDarkMode 
+          ? `${darkBgColor} ${darkTextColor}` 
+          : 'bg-tag-orange text-off-white'
+      } ${className}`}
     >
       {label}
     </span>
