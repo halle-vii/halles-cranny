@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto:wght@400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@400;500;700;800&display=swap');
 @import 'tailwindcss';
 
 @theme {
@@ -61,6 +61,8 @@
   --animate-scroll-bg-horizontal: scroll-bg-horizontal 20s linear infinite;
   --animate-fade-in: fade-in 0.3s ease-in;
   --animate-bounce: bounce-ptr 1s ease-in-out infinite;
+  --animate-gradient: gradient 3s ease infinite;
+  --animate-text-rise: text-rise 2s ease-in-out infinite;
 }
 
 @keyframes spin-slow {
@@ -131,6 +133,24 @@
   }
   to {
     background-position: 100% 0;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes text-rise {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
   }
 }
 

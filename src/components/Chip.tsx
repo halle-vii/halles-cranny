@@ -27,7 +27,7 @@ const sizeClasses = {
 }
 
 const hoverEffects = {
-  scale: 'hover:scale-110',
+  scale: 'hover:-translate-y-1 hover:bg-[#A8E4D3]',
   bounce: 'hover:animate-bounce',
   wiggle: 'hover:animate-wiggle',
   none: '',
@@ -66,9 +66,8 @@ export function Chip({
       className={`
         inline-flex items-center justify-center gap-2 
         rounded-full font-roboto font-medium
-        shadow-[inset_0_-3px_0_rgba(0,0,0,0.1)]
-        transition-all duration-200 
-        active:scale-95 active:shadow-[inset_0_-1px_0_rgba(0,0,0,0.1)]
+        transition-all duration-300
+        active:scale-95
         ${sizeClasses[size]}
         ${bgColor}
         ${textColor}

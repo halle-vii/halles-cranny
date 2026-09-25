@@ -4,7 +4,7 @@ import { useGLTF, OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 
 function CameraAdjuster() {
-  const { camera, size, gl } = useThree()
+  const { camera, size, gl, invalidate } = useThree()
   
   useEffect(() => {
     if (camera.type === 'PerspectiveCamera') {
@@ -12,18 +12,21 @@ function CameraAdjuster() {
       const aspect = size.width / size.height
       
       // Adjust FOV based on aspect ratio to prevent cropping
-      // Only increase FOV when aspect ratio is narrow (< 0.8)
+      // Increased base FOV and adjusted thresholds to prevent cutoff
       if (aspect < 0.8) {
-        // Map aspect ratio 0.5-0.8 to FOV 60-45
-        perspCamera.fov = 45 + (0.8 - aspect) * 50
+        // Map aspect ratio 0.5-0.8 to FOV 70-50
+        perspCamera.fov = 50 + (0.8 - aspect) * 66.67
       } else {
-        perspCamera.fov = 45
+        perspCamera.fov = 50
       }
       
       perspCamera.aspect = aspect
       perspCamera.updateProjectionMatrix()
+      
+      // Force a re-render after camera update
+      invalidate()
     }
-  }, [camera, size, gl])
+  }, [camera, size, gl, invalidate])
   
   return null
 }
@@ -41,10 +44,10 @@ function Model() {
       const center = box.getCenter(new THREE.Vector3())
       scene.position.sub(center)
       
-      // Scale the model 
+      // Scale the model - increased from 5 to 7 for bigger size
       const size = box.getSize(new THREE.Vector3())
       const maxDim = Math.max(size.x, size.y, size.z)
-      const scale = 5 / maxDim
+      const scale = 7 / maxDim
       scene.scale.setScalar(scale)
     }
 
@@ -83,18 +86,20 @@ export function IsabelleModel() {
   return (
     <div 
       ref={containerRef}
-      className="relative mx-auto w-full max-w-[600px] h-[300px] md:h-[400px] lg:h-[500px]"
+      className="relative mx-auto w-full max-w-[800px] h-[300px] md:h-[400px] lg:h-[500px]"
     >
       <Canvas
         camera={{ 
-          position: [-3, 4, 11], 
-          fov: 45,
+          position: [-2, 3, 9], 
+          fov: 50,
           near: 0.1,
           far: 1000
         }}
         style={{ background: 'transparent', width: '100%', height: '100%' }}
+        dpr={[1, 2]}
         onCreated={({ gl }) => {
           gl.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+          gl.setClearColor(0x000000, 0)
         }}
       >
         <CameraAdjuster />

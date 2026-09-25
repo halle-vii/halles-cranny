@@ -189,7 +189,7 @@ export function ContactSection() {
       
       
       <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 lg:grid lg:grid-cols-[1fr_1fr] lg:items-end">
-        <div className=" flex w-full items-center justify-center lg:w-auto lg:items-end lg:justify-self-end">
+        <div className="flex  items-center justify-center w-full lg:items-end lg:justify-self-end">
           <IsabelleModel />
         </div>
 
@@ -201,7 +201,7 @@ export function ContactSection() {
             scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
           }}
           viewport={{ once: true }}
-          className="w-full max-w-[450px] lg:justify-self-start">
+          className="w-[450px] max-w-[450px] mx-auto lg:mx-0 lg:justify-self-start shrink-0">
           <div className={`relative rounded-[120px] px-8 pb-12 pt-10 shadow-[0_20px_50px_rgba(0,0,0,0.12)] ${
             isDarkMode ? 'bg-dark-about-dialog-bg' : 'bg-phone-bg'}`}>
             <div className="mb-8 flex items-center justify-between px-2 text-[#dddbcc]">
