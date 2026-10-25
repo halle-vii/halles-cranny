@@ -96,9 +96,8 @@ export function IsabelleModel() {
           far: 1000
         }}
         style={{ background: 'transparent', width: '100%', height: '100%' }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         onCreated={({ gl }) => {
-          gl.setPixelRatio(Math.min(window.devicePixelRatio, 2))
           gl.setClearColor(0x000000, 0)
         }}
       >

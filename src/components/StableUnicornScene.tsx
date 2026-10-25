@@ -70,7 +70,8 @@ export const StableUnicornScene = memo(function StableUnicornScene({
         width={width}
         height={height}
         scale={scale}
-        dpi={dpi}
+        dpi={Math.min(dpi, 1)}
+        fps={30}
         sdkUrl={sdkUrl}
       />
     </div>

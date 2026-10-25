@@ -11,6 +11,8 @@ export const assets = {
   projectsBubble: '/projectBubble.svg',
   projectScreenshot: '/projectScreenshot.png',
   projectScreenshot2: '/projectScreenshot2.png',
+  novateurCreateTicket: '/novateurProjectScreenshot.png',
+  novateurTicketDetails: '/novateurProjectScreenshot2.png',
   isabelle: '/isabelle.png',
   weaponCircle: '/weaponCircle.svg',
   avatarFace: '/Face.svg',

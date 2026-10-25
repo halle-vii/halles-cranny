@@ -1,67 +1,10 @@
 import { assets } from '../assets'
 import { NameTag } from './NameTag'
 import { Chip } from './Chip'
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { WetPaintTitle } from './WetPaintTitle'
-import { useRef, type MouseEvent } from 'react'
 import { useTheme } from '../contexts/ThemeContext'
-
-function ProjectScreenshot({ src, alt }: { src: string; alt: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-  
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 })
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 })
-  
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['15deg', '-15deg'])
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-15deg', '15deg'])
-  
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return
-    
-    const rect = ref.current.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
-    const mouseX = e.clientX - rect.left
-    const mouseY = e.clientY - rect.top
-    
-    const xPct = mouseX / width - 0.5
-    const yPct = mouseY / height - 0.5
-    
-    x.set(xPct)
-    y.set(yPct)
-  }
-  
-  const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-  }
-  
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: 'preserve-3d',
-      }}
-      className="overflow-hidden rounded-[32px] shadow-[0_16px_40px_rgba(0,0,0,0.12)] transition-shadow hover:shadow-[0_20px_50px_rgba(0,0,0,0.18)] cursor-pointer"
-    >
-      <motion.img
-        src={src}
-        alt={alt}
-        className="h-auto w-full object-cover"
-        style={{
-          transform: 'translateZ(20px)',
-        }}
-      />
-    </motion.div>
-  )
-}
+import { ProjectCarousel } from './ProjectCarousel'
 
 export function ProjectsSection() {
   const { isDarkMode } = useTheme()
@@ -150,9 +93,13 @@ export function ProjectsSection() {
             }}
             viewport={{ once: true, amount: 0.3 }}
           >
-            <ProjectScreenshot 
-              src={assets.projectScreenshot}
-              alt="Novateur IT ticketing system dashboard screenshot"
+            <ProjectCarousel
+              projectName="Novateur"
+              images={[
+                { src: assets.projectScreenshot, alt: 'Novateur IT ticketing system dashboard', caption: 'Manage tickets' },
+                { src: assets.novateurCreateTicket, alt: 'Novateur ticket creation form with file upload', caption: 'Create a ticket' },
+                { src: assets.novateurTicketDetails, alt: 'Novateur ticket details with comments and management controls', caption: 'Ticket details' },
+              ]}
             />
           </motion.div>
         </motion.div>
@@ -169,9 +116,12 @@ export function ProjectsSection() {
             viewport={{ once: true, amount: 0.3 }}
             className="order-2 lg:order-1"
           >
-            <ProjectScreenshot 
-              src={assets.projectScreenshot2}
-              alt="KitaKita accessibility assistant screenshot"
+            <ProjectCarousel
+              projectName="KitaKita"
+              aspectRatio="1474 / 990"
+              images={[
+                { src: assets.projectScreenshot2, alt: 'KitaKita welcome screen, activity selection, and outdoor camera view' },
+              ]}
             />
           </motion.div>
 
