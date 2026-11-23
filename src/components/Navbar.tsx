@@ -2,6 +2,7 @@ import type { SectionId } from '../assets'
 import { navItems } from '../assets'
 import { useRef } from 'react'
 import { useTheme } from '../contexts/ThemeContext'
+import { IsabelleFact } from './IsabelleFact'
 
 type NavbarProps = {
   activeSection: SectionId
@@ -21,6 +22,12 @@ export function Navbar({ activeSection }: NavbarProps) {
   }
   return (
     <header className="fixed inset-x-0 top-0 z-50 block px-3 pt-4 sm:px-4 sm:pt-6">
+      {/* Isabelle fact in the far left corner */}
+      <div className="fixed left-3 top-4 sm:left-4 sm:top-6 z-50">
+        <IsabelleFact />
+      </div>
+      
+      {/* Navigation bar centered */}
       <nav
         aria-label="Primary"
         className={`relative mx-auto flex h-[55px] w-full max-w-[610px] items-center justify-between rounded-[50px] p-1 shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-colors sm:h-[67px] sm:px-2 ${

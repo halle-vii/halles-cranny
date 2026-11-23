@@ -2,9 +2,13 @@ import { assets } from '../assets'
 import { NameTag } from './NameTag'
 import { Chip } from './Chip'
 import { motion } from 'framer-motion'
-import { WetPaintTitle } from './WetPaintTitle'
+import { CurvedMarqueeBanner } from './CurvedMarqueeBanner'
 import { useTheme } from '../contexts/ThemeContext'
-import { ProjectCarousel } from './ProjectCarousel'
+import { ImagePile } from './ImagePile'
+import { AnimatedSandBackground } from './AnimatedSandBackground'
+import { IsabelleBalloon } from './IsabelleBalloon'
+import { SandParticles } from './SandParticles'
+import { ThemeImage } from './ThemeImage'
 
 export function ProjectsSection() {
   const { isDarkMode } = useTheme()
@@ -12,8 +16,19 @@ export function ProjectsSection() {
     <section id="projects" className={`relative px-4 pt-24 pb-[120px] sm:pb-[100px] ${
       isDarkMode ? 'bg-projects-bg-dark' : 'bg-projects-bg'
     }`}>
-      <img
-        src={isDarkMode ? assets.waveBorderDark : assets.waveBorder}
+      {/* Animated sand background */}
+      <AnimatedSandBackground isDarkMode={isDarkMode} />
+      
+      {/* Sand particles and starfish */}
+      <SandParticles isDarkMode={isDarkMode} />
+      
+      {/* Isabelle balloon following cursor */}
+      <IsabelleBalloon />
+      
+      <ThemeImage
+        lightSrc={assets.waveBorder}
+        darkSrc={assets.waveBorderDark}
+        isDarkMode={isDarkMode}
         alt=""
         aria-hidden
         className="pointer-events-none absolute -top-[70px] left-0 right-0 w-full object-cover"
@@ -28,12 +43,10 @@ export function ProjectsSection() {
           }}
           viewport={{ once: true }}
         >
-          <WetPaintTitle 
-            title="Projects"
-            backgroundColor={isDarkMode ? "#04463D" : "#79C4AE" }
+          <CurvedMarqueeBanner 
+            text="PROJECTS"
+            backgroundColor={isDarkMode ? "#04463D" : "#7FD8BE" }
             textColor="#eee9ca"
-            dripCount={4}
-            speed={1}
           />
         </motion.div>
 
@@ -55,6 +68,7 @@ export function ProjectsSection() {
                 alt=""
                 aria-hidden
                 className="h-auto w-full min-h-[300px]"
+                style={{ transition: 'opacity 0.5s ease' }}
               />
               <div className="absolute inset-0 flex flex-col justify-center px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
                 <h3 className="mb-2 mt-4 font-roboto text-lg font-bold leading-[1.2] text-dialog-title sm:mb-3 sm:text-xl md:mb-4 md:text-2xl lg:text-[26px]">
@@ -93,19 +107,21 @@ export function ProjectsSection() {
             }}
             viewport={{ once: true, amount: 0.3 }}
           >
-            <ProjectCarousel
+            <ImagePile
               projectName="Novateur"
               images={[
-                { src: assets.projectScreenshot, alt: 'Novateur IT ticketing system dashboard', caption: 'Manage tickets' },
-                { src: assets.novateurCreateTicket, alt: 'Novateur ticket creation form with file upload', caption: 'Create a ticket' },
-                { src: assets.novateurTicketDetails, alt: 'Novateur ticket details with comments and management controls', caption: 'Ticket details' },
+                { src: assets.projectScreenshot, alt: 'Novateur IT ticketing system dashboard' },
+                { src: assets.novateurCreateTicket, alt: 'Novateur ticket creation form with file upload' },
+                { src: assets.novateurTicketDetails, alt: 'Novateur ticket details with comments and management controls' },
+                { src: assets.novateur4, alt: 'Novateur application interface' },
+                { src: assets.novateur5, alt: 'Novateur system features' },
               ]}
             />
           </motion.div>
         </motion.div>
 
         {/* KitaKita */}
-        <div className="mt-16 grid items-start gap-10 lg:grid-cols-[1fr_1fr]">
+        <div className="mt-16 grid items-start gap-10 lg:grid-cols-[1fr_1fr] mb-16">
           <motion.div 
             initial={{ opacity: 0, x: -30}}
             whileInView={{ opacity: 1, x: 0}}
@@ -116,11 +132,11 @@ export function ProjectsSection() {
             viewport={{ once: true, amount: 0.3 }}
             className="order-2 lg:order-1"
           >
-            <ProjectCarousel
+            <ImagePile
               projectName="KitaKita"
-              aspectRatio="1474 / 990"
               images={[
                 { src: assets.projectScreenshot2, alt: 'KitaKita welcome screen, activity selection, and outdoor camera view' },
+                { src: assets.kitakitaSS2, alt: 'KitaKita app interface' },
               ]}
             />
           </motion.div>
@@ -146,6 +162,7 @@ export function ProjectsSection() {
                 alt=""
                 aria-hidden
                 className="h-auto w-full sm:min-h-[350px] min-h-[300px] "
+                style={{ transition: 'opacity 0.5s ease' }}
               />
               <div className="absolute inset-0 flex flex-col justify-center px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
                 <h3 className="mb-2 font-roboto text-lg font-bold leading-[1.2] text-dialog-title sm:mb-3 sm:text-xl md:mb-4 md:text-2xl lg:text-[26px] mt-5">
@@ -175,8 +192,10 @@ export function ProjectsSection() {
         </div>
       </div>
 
-      <img
-        src={isDarkMode ? assets.waveBottomDark : assets.waveBottom}
+      <ThemeImage
+        lightSrc={assets.waveBottom}
+        darkSrc={assets.waveBottomDark}
+        isDarkMode={isDarkMode}
         alt=""
         aria-hidden
         className="pointer-events-none absolute -bottom-[1px] sm:-bottom-[70px] left-0 right-0 w-full object-cover z-20"
